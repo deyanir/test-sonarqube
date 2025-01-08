@@ -1,8 +1,7 @@
-name: Main Workflow
+name: Main Workflow 
 
 on:
   workflow_dispatch:
-
 jobs:
     build:
       name: Build
@@ -18,28 +17,26 @@ jobs:
         - name: Cache SonarQube packages
           uses: actions/cache@v1
           with:
-            path: ~/.sonar/cache
+            path: MyDotnetApp
             key: ${{ runner.os }}-sonar
             restore-keys: ${{ runner.os }}-sonar
         - name: Cache SonarQube scanner
           id: cache-sonar-scanner
           uses: actions/cache@v1
           with:
-            path: .\.sonar\scanner
+            path: MyDotnetApp
             key: ${{ runner.os }}-sonar-scanner
             restore-keys: ${{ runner.os }}-sonar-scanner
         - name: Install SonarQube scanner
-          if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+          # if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
           shell: powershell
           run: |
             dir
-            New-Item -Path .\.sonar\scanner -ItemType Directory
-            dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+            New-Item -Path .MyDotnetApp\.sonar\scanner -ItemType Directory
+            dotnet tool update dotnet-sonarscanner --tool-path .MyDotnetApp\.sonar\scanner
         - name: Build and analyze
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           shell: powershell
           run: |
-              .\.sonar\scanner\dotnet-sonarscanner begin /k:"test" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_URL }}"
-              dotnet build 
-              .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+              .\MyDotnetApp\.sonar\scanner\dotnet-sonarscanner begin /k:"test" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_URL }}"
+              dotnet build .\MyDotnetApp\SomeConsoleApplication.sln
+              .\MyDotnetApp\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"link copied
