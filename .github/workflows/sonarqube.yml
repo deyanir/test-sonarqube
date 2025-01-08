@@ -31,3 +31,6 @@ jobs:
         SONAR_HOST_URL: ${{ secrets.SONAR_URL }}
       with:
         projectBaseDir: MyDotnetApp # Path to the project directory
+        args: |
+          -Dsonar.projectKey=a
+          -Dsonar.organization=sonar-ad111
