@@ -34,7 +34,4 @@ jobs:
         args: |
           -Dsonar.projectKey=a \
           -Dsonar.organization=sonar-ad111 \
-          -Dsonar.tests=tests \
-          -Dsonar.sources=src \
-          -Dsonar.coverage.jacoco.xmlReportPaths=build/reports/jacoco/test/jacocoTestReport.xml \
           -Dsonar.branch.name=${{ github.head_ref || github.ref_name }}
