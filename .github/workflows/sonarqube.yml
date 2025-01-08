@@ -32,5 +32,5 @@ jobs:
       with:
         projectBaseDir: MyDotnetApp # Path to the project directory
         args: |
-          -Dsonar.projectKey=a
+          -Dsonar.projectKey=a \
           -Dsonar.organization=sonar-ad111
