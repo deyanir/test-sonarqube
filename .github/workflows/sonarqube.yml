@@ -32,5 +32,6 @@ jobs:
         projectBaseDir: MyDotnetApp # Path to the project directory
         args: |
           -Dsonar.projectKey=my-dotnet-app \
+          -Dsonar.organization=Anirban \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
