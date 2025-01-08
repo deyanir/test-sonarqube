@@ -34,4 +34,4 @@ jobs:
         args: |
           -Dsonar.projectKey=a \
           -Dsonar.organization=sonar-ad111 \
-          -Dsonar.branch.name=${{ github.head_ref || github.ref_name }}
+          -Dsonar.branch.name=main
