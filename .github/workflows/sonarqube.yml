@@ -25,7 +25,7 @@ jobs:
         dotnet build MyDotnetApp/MyDotnetApp.csproj --no-restore
 
     - name: SonarQube Scan
-      uses: sonarsource/sonarqube-scan-action@v2
+      uses: sonarsource/sonarqube-scan-action@master
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # Add SONAR_TOKEN in GitHub Secrets
         SONAR_HOST_URL: ${{ secrets.SONAR_URL }}
