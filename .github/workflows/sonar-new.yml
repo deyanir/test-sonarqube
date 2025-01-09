@@ -39,6 +39,6 @@ jobs:
         - name: Build and analyze
           shell: powershell
           run: |
-              .\.sonar\scanner\dotnet-sonarscanner begin /k:"MS-VISTA-TEST" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_URL }}"
+              .\.sonar\scanner\dotnet-sonarscanner begin /k:"sonar-ad111:my-dotnet-app" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_URL }}" /o:"sonar-ad111"
               dotnet build
               .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
