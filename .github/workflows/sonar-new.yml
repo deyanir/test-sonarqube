@@ -1,44 +1,44 @@
-name: SonarQube test for .net
+name: .NET Build and SonarQube Analysis
 
 on:
   workflow_dispatch:
 
 jobs:
-    build:
-      name: Build
-      runs-on: windows-latest
-      steps:
-        - uses: actions/checkout@v2
-          with:
-            fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-        - name: Set up JDK 17
-          uses: actions/setup-java@v1
-          with:
-            java-version: 1.17
-        - name: Cache SonarQube packages
-          uses: actions/cache@v1
-          with:
-            path: ~\.sonar\cache
-            key: ${{ runner.os }}-sonar
-            restore-keys: ${{ runner.os }}-sonar
-        - name: Cache SonarQube scanner
-          id: cache-sonar-scanner
-          uses: actions/cache@v1
-          with:
-            path: .\.sonar\scanner
-            key: ${{ runner.os }}-sonar-scanner
-            restore-keys: ${{ runner.os }}-sonar-scanner
+  build-and-analyze:
+    runs-on: windows-latest
 
-        - name: Install SonarQube scanner
-          if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
-          shell: powershell
-          run: |
-            New-Item -Path .\.sonar\scanner -ItemType Directory
-            dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-        - name: Build and analyze
-          shell: powershell
-          run: |
-              .\.sonar\scanner\dotnet-sonarscanner begin /k:"sonar-ad111:my-dotnet-app" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_URL }}" /o:"sonar-ad111"
-              dotnet build
-              .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+      # Step 2: Setup .NET SDK
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0'
+
+      # Step 3: Install SonarScanner for .NET
+      - name: Install SonarScanner for .NET
+        run: |
+          dotnet tool install --global dotnet-sonarscanner
+
+      # Step 4: Start SonarQube Analysis (Begin Step)
+      - name: Begin SonarQube Analysis
+        run: |
+          dotnet sonarscanner begin \
+            /k:"my-dotnet-app" \
+            /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
+            /d:sonar.host.url="${{ secrets.SONAR_URL }}" \
+            /o:"sonar-ad111"
+
+      # Step 5: Build the Project
+      - name: Build the Project
+        run: |
+          dotnet build
+
+      # Step 6: End SonarQube Analysis
+      - name: End SonarQube Analysis
+        run: |
+          dotnet sonarscanner end \
+            /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
