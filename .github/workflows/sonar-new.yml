@@ -28,7 +28,7 @@ jobs:
         run: |
           dotnet sonarscanner begin `
             /k:"my-dotnet-app" `
-            /d:sonar.token="${{ secrets.SONARQUBE_SCAN_TOKEN }}" `
+            /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
             /d:sonar.host.url="${{ secrets.SONAR_URL }}" `
             /o:"my-organization"
 
