@@ -27,7 +27,7 @@ jobs:
       - name: Begin SonarQube Analysis
         run: |
           dotnet sonarscanner begin `
-            /k:"my-dotnet-app" `
+            /k:"a" `
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
             /d:sonar.host.url="${{ secrets.SONAR_URL }}" `
             /o:"my-organization"
