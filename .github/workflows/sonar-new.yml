@@ -27,10 +27,10 @@ jobs:
       - name: Begin SonarQube Analysis
         run: |
           dotnet sonarscanner begin `
-            /k:"a" `
+            /k:"sonar-dotnet-scan" `
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
             /d:sonar.host.url="${{ secrets.SONAR_URL }}" `
-            /o:"my-organization"
+            /o:"sonar-ad111"
 
       # Step 5: Build the Project
       - name: Build the Project
