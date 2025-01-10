@@ -46,6 +46,7 @@ jobs:
       - name: Run tests and collect code coverage
         shell: powershell
         run: |
+          cd MyDotnetApp.Tests
           dotnet-coverage collect 'dotnet test --no-restore --nologo' -f xml --output "coverage.xml"
 
       # Step 7: Prepare Coverage Report for SonarQube
