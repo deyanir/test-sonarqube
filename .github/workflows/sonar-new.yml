@@ -43,10 +43,7 @@ jobs:
         run: |
           dotnet build
           dotnet test --collect:"XPlat Code Coverage"
-          # Ensure the coverage report is in the correct format (Cobertura)
-          # Convert the generated coverage to Cobertura XML format
-          report=$(find $(pwd) -name "coverage.cobertura.xml")
-          mv $report ./coverage.cobertura.xml
+
 
       # Step 7: Publish Code Coverage Report
       # Step 7: Publish Code Coverage Report
