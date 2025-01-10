@@ -1,12 +1,28 @@
-using MyDotnetApp;
+using System;
 
-public class MyClassTests
+namespace MyDotnetApp
 {
-    [Fact]
-    public void MyClassMethod_ShouldDoSomething()
+    public class MyClass
     {
-        var myClassInstance = new MyDotnetApp.MyClass();
-        // Test logic here
+        // A simple property
+        public string Name { get; set; }
+
+        // Constructor
+        public MyClass(string name)
+        {
+            Name = name;
+        }
+
+        // A method that performs a simple operation
+        public int AddNumbers(int a, int b)
+        {
+            return a + b;
+        }
+
+        // A method to display the name
+        public void DisplayName()
+        {
+            Console.WriteLine($"Hello, my name is {Name}.");
+        }
     }
 }
-
