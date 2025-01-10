@@ -23,21 +23,36 @@ jobs:
         run: |
           dotnet tool install --global dotnet-sonarscanner
 
-      # Step 4: Start SonarQube Analysis (Begin Step)
+      # Step 4: Install Coverlet (for code coverage)
+      - name: Install Coverlet
+        run: |
+          dotnet add package coverlet.msbuild --version 3.1.0
+
+      # Step 5: Start SonarQube Analysis (Begin Step)
       - name: Begin SonarQube Analysis
         run: |
           dotnet sonarscanner begin `
             /k:"sonar-dotnet-scan" `
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
             /d:sonar.host.url="${{ secrets.SONAR_URL }}" `
-            /o:"sonar-ad111"
+            /o:"sonar-ad111" `
+            /d:sonar.cs.vstest.reportsPaths="**/TestResults/*.xml"
 
-      # Step 5: Build the Project
-      - name: Build the Project
+      # Step 6: Build and test the Project with coverage
+      - name: Build and Run Tests with Coverage
         run: |
           dotnet build
+          dotnet test --collect:"XPlat Code Coverage"
 
-      # Step 6: End SonarQube Analysis
+      # Step 7: Publish Code Coverage Report
+      - name: Publish Code Coverage
+        run: |
+          # Convert the code coverage report to a format SonarQube understands (e.g., lcov)
+          report=$(find $(pwd) -name "coverage.cobertura.xml")
+          mv $report ./coverage.cobertura.xml
+          echo "sonar.cs.vstest.reportsPaths=coverage.cobertura.xml" >> $GITHUB_ENV
+
+      # Step 8: End SonarQube Analysis
       - name: End SonarQube Analysis
         run: |
           dotnet sonarscanner end `
