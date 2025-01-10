@@ -30,7 +30,7 @@ jobs:
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
             /d:sonar.host.url="${{ secrets.SONAR_URL }}" `
             /o:"sonar-ad111"
-            /d:sonar.projectBaseDir=$(pwd)/MyDotnetApp.csproj
+            /d:sonar.projectBaseDir=$(pwd)/MyDotnetApp/MyDotnetApp.csproj
       # Step 5: Build the Project
       - name: Build the Project
         run: |
