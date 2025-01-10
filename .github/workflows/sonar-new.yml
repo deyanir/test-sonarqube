@@ -31,9 +31,7 @@ jobs:
             /d:sonar.host.url="${{ secrets.SONAR_URL }}" `
             /o:"sonar-ad111" `
             /d:sonar.projectBaseDir="$(Get-Location)\\MyDotnetApp\\MyDotnetApp.csproj" `
-             dotnet build MyDotnetApp/MyDotnetApp.csproj `
-             dotnet sonarscanner end `
-            /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
+             dotnet build MyDotnetApp/MyDotnetApp.csproj 
       # Step 6: End SonarQube Analysis
       - name: End SonarQube Analysis
         run: |
