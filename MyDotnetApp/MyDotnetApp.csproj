@@ -7,16 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Add any required NuGet packages here -->
-    <!-- For example, if you're using any packages for functionality -->
+    <!-- Add dependencies specific to the main project -->
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-    <!-- Include any other dependencies you might need -->
-  </ItemGroup>
-
-  <ItemGroup>
-    <!-- Reference the test project -->
-    <ProjectReference Include="..\MyDotnetApp.Tests\MyDotnetApp.Tests.csproj" />
   </ItemGroup>
 
 </Project>
