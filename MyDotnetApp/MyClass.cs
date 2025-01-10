@@ -1,12 +1,12 @@
-using System;
+using MyDotnetApp;
 
-namespace MyDotnetApp
+public class MyClassTests
 {
-    class Program
+    [Fact]
+    public void MyClassMethod_ShouldDoSomething()
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello, World!");
-        }
+        var myClassInstance = new MyDotnetApp.MyClass();
+        // Test logic here
     }
 }
+
