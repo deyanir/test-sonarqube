@@ -22,6 +22,7 @@ jobs:
       - name: Install SonarScanner for .NET
         run: |
           dotnet tool install --global dotnet-sonarscanner
+
       # Step 4: Start SonarQube Analysis (Begin Step)
       - name: Begin SonarQube Analysis
         run: |
@@ -29,31 +30,33 @@ jobs:
             /k:"sonar-dotnet-scan" `
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
             /d:sonar.host.url="${{ secrets.SONAR_URL }}" `
-            /o:"sonar-ad111" `
-            /d:sonar.projectBaseDir="$(Get-Location)\\MyDotnetApp\\MyDotnetApp.csproj" `
+            /o:"sonar-ad111"
+
       # Step 5: Build the Project
       - name: Build the Project
         run: |
           dotnet build MyDotnetApp/MyDotnetApp.csproj
-      # Step 6: End SonarQube Analysis
-      - name: End SonarQube Analysis
-        run: |
-          dotnet sonarscanner end `
-            /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
-            
-            
+
+      # Step 6: Run Tests and Collect Code Coverage
       - name: Install dotnet-coverage tool
         shell: powershell
         run: |
-            dotnet tool install --global dotnet-coverage
+          dotnet tool install --global dotnet-coverage
 
       - name: Run tests and collect code coverage
         shell: powershell
         run: |
-             dotnet-coverage collect 'dotnet test --no-restore --nologo' -f xml --output "coverage.xml"
+          dotnet-coverage collect 'dotnet test --no-restore --nologo' -f xml --output "coverage.xml"
 
+      # Step 7: Prepare Coverage Report for SonarQube
       - name: Prepare Coverage Report for SonarQube
         shell: powershell
         run: |
           # Use the Visual Studio Coverage XML format and set the property for SonarQube
-            echo "sonar.cs.vscoveragexml.reportsPaths=coverage.xml" >> $GITHUB_ENV
+          echo "sonar.cs.vscoveragexml.reportsPaths=coverage.xml" >> $GITHUB_ENV
+
+      # Step 8: End SonarQube Analysis
+      - name: End SonarQube Analysis
+        run: |
+          dotnet sonarscanner end `
+            /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
