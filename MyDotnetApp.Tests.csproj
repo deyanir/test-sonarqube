@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- xUnit Test Framework -->
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
+    
+    <!-- Code Coverage (for collection of code coverage data) -->
+    <PackageReference Include="coverlet.collector" Version="3.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Reference to the main project (MyDotnetApp) -->
+    <ProjectReference Include="..\MyDotnetApp\MyDotnetApp.csproj" />
+  </ItemGroup>
+
+</Project>
