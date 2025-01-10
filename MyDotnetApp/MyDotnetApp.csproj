@@ -1,8 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework> <!-- Change as per your .NET version -->
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>MyDotnetApp</RootNamespace>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Add any required NuGet packages here -->
+    <!-- For example, if you're using any packages for functionality -->
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <!-- Include any other dependencies you might need -->
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Reference the test project -->
+    <ProjectReference Include="..\MyDotnetApp.Tests\MyDotnetApp.Tests.csproj" />
+  </ItemGroup>
 
 </Project>
