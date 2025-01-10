@@ -1,51 +1,33 @@
 using Xunit;
+using MyDotnetApp;
 
-public class MyClassTests
+namespace MyDotnetApp.Tests
 {
-    private readonly MyClass _myClass;
-
-    public MyClassTests()
+    public class MyClassTests
     {
-        _myClass = new MyClass();
-    }
+        [Fact]
+        public void AddNumbers_ReturnsCorrectSum()
+        {
+            // Arrange
+            var myClass = new MyClass("TestName");
+            int num1 = 3;
+            int num2 = 5;
 
-    [Fact]
-    public void Add_ShouldReturnCorrectSum()
-    {
-        // Arrange
-        int a = 2;
-        int b = 3;
+            // Act
+            int result = myClass.AddNumbers(num1, num2);
 
-        // Act
-        int result = _myClass.Add(a, b);
+            // Assert
+            Assert.Equal(8, result);
+        }
 
-        // Assert
-        Assert.Equal(5, result);
-    }
+        [Fact]
+        public void NameProperty_ShouldBeSetCorrectly()
+        {
+            // Arrange
+            var myClass = new MyClass("John Doe");
 
-    [Fact]
-    public void IsEven_ShouldReturnTrueForEvenNumber()
-    {
-        // Arrange
-        int number = 4;
-
-        // Act
-        bool result = _myClass.IsEven(number);
-
-        // Assert
-        Assert.True(result);
-    }
-
-    [Fact]
-    public void IsEven_ShouldReturnFalseForOddNumber()
-    {
-        // Arrange
-        int number = 5;
-
-        // Act
-        bool result = _myClass.IsEven(number);
-
-        // Assert
-        Assert.False(result);
+            // Assert
+            Assert.Equal("John Doe", myClass.Name);
+        }
     }
 }
