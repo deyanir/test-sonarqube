@@ -47,7 +47,7 @@ jobs:
         shell: powershell
         run: |
           cd MyDotnetApp.Tests
-          dotnet-coverage collect 'dotnet test MyDotnetApp.Tests.csproj' -f xml --output "coverage.xml"
+          dotnet-coverage collect 'dotnet test MyDotnetApp.Tests/MyDotnetApp.Tests.csproj' -f xml --output "coverage.xml"
 
       # Step 7: Prepare Coverage Report for SonarQube
       - name: Prepare Coverage Report for SonarQube
